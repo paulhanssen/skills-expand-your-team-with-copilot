@@ -50,6 +50,17 @@ body {
   font-size: 0.9rem;
 }
 
+body.dark-mode {
+  --background: #121212;
+  --surface: #1e1e1e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border: #444444;
+  --border-light: #333333;
+  --border-focus: #666666;
+  --primary: #3949ab;
+}
+
 header {
   text-align: center;
   padding: 12px 0;
@@ -93,6 +104,13 @@ section h3 {
   border-bottom: 1px solid var(--border);
   color: var(--primary);
   font-size: 1.1rem;
+}
+
+body.dark-mode section h3,
+body.dark-mode .sidebar-filters h3,
+body.dark-mode .activity-card h4,
+body.dark-mode .participants-list h5 {
+  color: #aab6ff;
 }
 
 /* New Layout Styles */
@@ -494,6 +512,11 @@ footer {
   transition: all 0.3s ease;
 }
 
+body.dark-mode input {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
+
 .search-box input:focus {
   outline: none;
   border-color: var(--primary-light);
@@ -617,6 +640,9 @@ footer {
   position: absolute;
   top: 10px;
   right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 #user-status {
@@ -677,15 +703,15 @@ footer {
 
 .share-button {
   padding: 3px 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  background: #fff;
-  color: #333;
+  background: var(--surface);
+  color: var(--text-primary);
   font-size: 0.8rem;
   text-decoration: none;
   cursor: pointer;
 }
 
 .share-button:hover {
-  background: #eee;
+  background: var(--background);
 }

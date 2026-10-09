@@ -555,6 +555,13 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         </ul>
       </div>
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <a class="share-button" data-share="facebook" target="_blank" rel="noopener noreferrer" title="Share on Facebook">Facebook</a>
+        <a class="share-button" data-share="twitter" target="_blank" rel="noopener noreferrer" title="Share on X">X</a>
+        <a class="share-button" data-share="email" title="Share by email">Email</a>
+        <button type="button" class="share-button" data-share="copy" title="Copy link">Copy link</button>
+      </div>
       <div class="activity-card-actions">
         ${
           currentUser
@@ -573,6 +580,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       </div>
     `;
+
+    // Set up share buttons
+    const shareText = `Check out ${name} at Mergington High School: ${details.description}`;
+    const shareUrl = window.location.href;
+    const enc = encodeURIComponent;
+    const links = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${enc(shareUrl)}&quote=${enc(shareText)}`,
+      twitter: `https://twitter.com/intent/tweet?text=${enc(shareText)}&url=${enc(shareUrl)}`,
+      email: `mailto:?subject=${enc(name + " at Mergington High School")}&body=${enc(shareText + "\n" + shareUrl)}`,
+    };
+    activityCard.querySelectorAll("a.share-button").forEach((link) => {
+      link.href = links[link.dataset.share];
+    });
+    const copyButton = activityCard.querySelector('[data-share="copy"]');
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+        copyButton.textContent = "Copied!";
+      } catch (e) {
+        copyButton.textContent = "Copy failed";
+      }
+      setTimeout(() => (copyButton.textContent = "Copy link"), 2000);
+    });
 
     // Add click handlers for delete buttons
     const deleteButtons = activityCard.querySelectorAll(".delete-participant");

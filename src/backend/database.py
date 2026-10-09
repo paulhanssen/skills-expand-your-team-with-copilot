@@ -27,6 +27,15 @@ def init_database():
             {"$setOnInsert": {"_id": name, **details}},
             upsert=True
         )
+
+    activities_collection.update_one(
+        {"_id": "Manga Maniacs"},
+        {"$set": {
+            "schedule": "Tuesdays, 5:00 PM",
+            "schedule_details": {"days": ["Tuesday"], "start_time": "17:00"},
+            "max_participants": 25
+        }}
+    )
             
     # Initialize teacher accounts if empty
     if teachers_collection.count_documents({}) == 0:
@@ -103,12 +112,12 @@ initial_activities = {
     },
     "Manga Maniacs": {
         "description": "Dive into epic adventures, unforgettable heroes, and plot twists as we explore Japanese manga together—bring your favorite series and discover your next obsession!",
-        "schedule": "Tuesdays, 7:00 PM",
+        "schedule": "Tuesdays, 5:00 PM",
         "schedule_details": {
             "days": ["Tuesday"],
-            "start_time": "19:00"
+            "start_time": "17:00"
         },
-        "max_participants": 15,
+        "max_participants": 25,
         "participants": []
     },
     "Drama Club": {
